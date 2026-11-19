@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "author": "Jefferson Ernesto Castro Pariona",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "reservoirSensor",
+      "top": -210,
+      "left": -220,
+      "attrs": { "distance": "5" }
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "proximitySensor",
+      "top": -210,
+      "left": 120,
+      "attrs": { "distance": "100" }
+    },
+    { "type": "wokwi-servo", "id": "bypassServo", "top": 200, "left": 230, "attrs": {} },
+    { "type": "wokwi-hx711", "id": "loadCell", "top": 230, "left": -300, "attrs": { "type": "5kg" } },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd",
+      "top": 40,
+      "left": 260,
+      "attrs": { "pins": "i2c", "i2cAddress": "0x27" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+
+    [ "reservoirSensor:VCC", "esp:5V", "red", [ "v0" ] ],
+    [ "reservoirSensor:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "reservoirSensor:TRIG", "esp:5", "orange", [ "v0" ] ],
+    [ "reservoirSensor:ECHO", "esp:18", "purple", [ "v0" ] ],
+
+    [ "proximitySensor:VCC", "esp:5V", "red", [ "v0" ] ],
+    [ "proximitySensor:GND", "esp:GND.2", "black", [ "v0" ] ],
+    [ "proximitySensor:TRIG", "esp:32", "orange", [ "v0" ] ],
+    [ "proximitySensor:ECHO", "esp:33", "purple", [ "v0" ] ],
+
+    [ "bypassServo:V+", "esp:5V", "red", [ "h0" ] ],
+    [ "bypassServo:GND", "esp:GND.3", "black", [ "h0" ] ],
+    [ "bypassServo:PWM", "esp:13", "green", [ "h0" ] ],
+
+    [ "loadCell:VCC", "esp:5V", "red", [ "h0" ] ],
+    [ "loadCell:GND", "esp:GND.1", "black", [ "h0" ] ],
+    [ "loadCell:DT", "esp:16", "blue", [ "h0" ] ],
+    [ "loadCell:SCK", "esp:4", "cyan", [ "h0" ] ],
+
+    [ "lcd:VCC", "esp:5V", "red", [ "h0" ] ],
+    [ "lcd:GND", "esp:GND.3", "black", [ "h0" ] ],
+    [ "lcd:SDA", "esp:21", "blue", [ "h0" ] ],
+    [ "lcd:SCL", "esp:22", "yellow", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
